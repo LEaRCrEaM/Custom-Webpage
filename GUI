@@ -92,7 +92,7 @@ html {
 }
 
 ::selection {
-  color: red;
+  text-shadow: 0 0 0 red;
   background: cyan;
 }
 </style>
