@@ -1,11 +1,11 @@
 document.body.insertAdjacentHTML('beforeend', `
 <div class="box">
   <button class="btn btn1">
-    <span>Button</span>
+    <span>Text Mod</span>
     <input class="check check1" type="checkbox"></input>
   </button>
   <button class="btn btn2">
-    <span>Button</span>
+    <span>(W.I.P)</span>
     <input class="check check2" type="checkbox"></input>
   </button>
 </div>
