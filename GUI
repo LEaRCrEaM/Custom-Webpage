@@ -1,0 +1,170 @@
+document.body.insertAdjacentHTML('beforeend', `
+<div class="box">
+  <button class="btn btn1">
+    <span>Button</span>
+    <input class="check check1" type="checkbox"></input>
+  </button>
+  <button class="btn btn2">
+    <span>Button</span>
+    <input class="check check2" type="checkbox"></input>
+  </button>
+</div>
+<style>
+.box {
+  position: absolute;
+  width: 500px;
+  height: 200px;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  line-height: 200px;
+  font-size: 24px;
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: black;
+  border: 1px solid black;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  background: conic-gradient(red, orange, yellow, green, blue, indigo, violet, red);
+  height: 150vh;
+  width: 150vh;
+  animation: 7s rotate infinite;
+  top: -200%;
+  left: -50%;
+}
+
+.box::after {
+  content: "My Thing";
+  height: 92%;
+  width: 96%;
+  background: #383838;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+html {
+  background: radial-gradient(circle at 0% 0%, hotpink, slateblue);
+}
+
+.box .btn {
+  top: -36%;
+  left: -20%;
+  margin: 5px;
+  display: list-items;
+  border-radius: 10px;
+  border: 2px solid red;
+  position: relative;
+  z-index: 11;
+  height: 30px;
+  width: 100px;
+  background: radial-gradient(cyan, hotpink);
+}
+
+.btn span {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.btn:hover {
+  transform: scale(1.2);
+  filter: brightness(.5);
+}
+
+.check {
+  border: 1px solid red;
+}
+</style>
+`);
+let posX, posY, mouseX, mouseY;
+
+const a = document.querySelector('.box');
+
+a.addEventListener("mousedown", function(e) {
+    e.preventDefault();
+    posX = a.offsetLeft;
+    posY = a.offsetTop;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    document.addEventListener("mousemove", mousemove);
+    document.addEventListener("mouseup", mouseup);
+});
+
+function mousemove(e) {
+    const dx = e.clientX - mouseX;
+    const dy = e.clientY - mouseY;
+    a.style.left = `${posX + dx}px`;
+    a.style.top = `${posY + dy}px`;
+}
+
+function mouseup() {
+    document.removeEventListener("mousemove", mousemove);
+    document.removeEventListener("mouseup", mouseup);
+}
+// Define a function that toggles the visibility
+function toggleVisibility() {
+  // Get the current visibility
+  let currentVisibility = a.style.visibility;
+  // Choose a different visibility
+  let newVisibility = currentVisibility === "hidden" ? "visible" : "hidden";
+  // Set the new visibility
+  a.style.visibility = newVisibility;
+}
+
+// Add an event listener for keydown events
+document.addEventListener("keydown", function(event) {
+  // Check if ctrl+q was pressed
+  if (event.keyCode == 192) {
+    // Call the toggle function
+    toggleVisibility();
+  }
+});
+
+const checkbox1 = document.querySelector('.check1');
+const checkboxButton1 = document.querySelector('.btn1');
+const checkbox2 = document.querySelector('.check2');
+const checkboxButton2 = document.querySelector('.btn2');
+const allText = document.querySelectorAll('span');
+
+checkboxButton1.addEventListener('click', function () {
+  checkbox1.checked = !checkbox1.checked;
+  checkbox1.dispatchEvent(new Event('change'));
+});
+
+checkboxButton2.addEventListener('click', function () {
+  checkbox2.checked = !checkbox2.checked;
+  checkbox2.dispatchEvent(new Event('change'));
+});
+
+checkbox1.addEventListener('change', function() {
+  const allText = document.querySelectorAll('span');
+  if (this.checked) {
+    allText.forEach(function(span) {
+      span.style.background = 'linear-gradient(90deg, red, cyan)';
+      span.style.webkitBackgroundClip = 'text';
+      span.style.webkitTextFillColor = 'transparent';
+    });
+  } else {
+    allText.forEach(function(span) {
+      span.style.background = '';
+      span.style.webkitBackgroundClip = '';
+      span.style.webkitTextFillColor = '';
+    });
+  }
+});
