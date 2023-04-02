@@ -42,7 +42,7 @@ document.body.insertAdjacentHTML('beforeend', `
 }
 
 .box::after {
-  content: "My Thing";
+  content: "Press ~ For Toggle";
   height: 92%;
   width: 96%;
   background: #383838;
@@ -89,6 +89,11 @@ html {
 
 .check {
   border: 1px solid red;
+}
+
+::selection {
+  color: red;
+  background: cyan;
 }
 </style>
 `);
